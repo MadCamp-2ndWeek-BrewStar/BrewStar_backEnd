@@ -117,56 +117,62 @@ def addCustom():
     collection =db.customs
     
     newCustom = {}
-    newCustom["name"] = request.args.get('name')
-    newCustom["menu"] = request.args.get('menu')
-    newCustom["category"] = request.args.get('category')
-    newCustom["custom"] = request.args.get('custom')
-    newCustom["Description"] = request.args.get('Description')
-    newCustom["creator"] = request.args.get('creator')
-    newCustom["creatornum"] = request.args.get('creatornum')
+    newCustom["name"] = request.form.get('name')
+    newCustom["menu"] = request.form.get('menu')
+    newCustom["category"] = request.form.get('category')
+    newCustom["custom"] = request.form.get('custom')
+    newCustom["Description"] = request.form.get('Description')
+    newCustom["creator"] = request.form.get('creator')
+    newCustom["creatornum"] = request.form.get('creatornum')
     newCustom["likes"] = "0"
     newCustom["createdAt"] = datetime.now()
 
     collection.insert_one(newCustom)
 
+    return jsonify({'message': 'Custom added successfully'}), 200
+
 @app.route("/editCustom", methods=['POST'])
 def editCustom():
 
-    customId = request.args.get('customId')
+    customId = request.form.get('customId')
     
     collection = db.customs
 
     filter= {'_id': ObjectId(customId)}
 
     new_values= {
-        "$set" : {"name" : request.args.get('name'),
-                  "menu" : request.args.get('menu'),
-                  "category" : request.args.get('category'),
-                  "custom" : request.args.get('custom'),
-                  "Description" : request.args.get('Description'),
+        "$set" : {"name" : request.form.get('name'),
+                  "menu" : request.form.get('menu'),
+                  "category" : request.form.get('category'),
+                  "custom" : request.form.get('custom'),
+                  "Description" : request.form.get('Description'),
                   "modifiedAt" : datetime.now()
                   }
     }
 
     collection.update_one(filter, new_values)
 
+    return jsonify({'message': 'Custom edited successfully'}), 200
+
 
 @app.route("/deleteCustom", methods=['POST'])
 def deleteCustom():
 
-    customId = request.args.get('customId')
+    customId = request.form.get('customId')
 
     collection = db.customs
 
     id = ObjectId(customId)
     collection.delete_one({"_id": id})
 
+    return jsonify({'message': 'Custom deleted successfully'}), 200
+
 
 @app.route("/likeCustom", methods=['POST'])
 def likeCustom():
 
-    userId = request.args.get('userId')
-    customId = request.args.get('customId')
+    userId = request.form.get('userId')
+    customId = request.form.get('customId')
 
     collection = db.users
 
@@ -195,6 +201,8 @@ def likeCustom():
             }
             collection.update_one(customFilter, new_likes)
 
+            return jsonify({'message': 'successful'}), 200
+
         #만약 좋아요를 누른 것이어서 취소하는 것이면
         elif (customId in customIds):
             customIds.remove(customId)
@@ -212,6 +220,8 @@ def likeCustom():
             }
             collection.update_one(customFilter, new_likes)
 
+            return jsonify({'message': 'successful'}), 200
+
     #만약 좋아요를 누른적이 없어서 info가 users안에 없다면
     
     else: 
@@ -228,6 +238,8 @@ def likeCustom():
             "$set" : {"likes" : str(newLikes) }
         }
         collection.update_one(customFilter, new_likes)
+
+        return jsonify({'message': 'successful'}), 200
 
 
 if __name__ ==  "__main__":
