@@ -27,8 +27,8 @@ def mongo():
     "category": "Frappuccino",
     "custom": "로스트1+라이트+기본 옵션:카라멜드리즐많이+초콜릿드리즐많이",
     "Description": "돼지바 프라푸치노에요~",
-    "creator": "안희웅",
-    "creatornum": "3259657340",
+    "creator": "김서연",
+    "creatornum": "3279479884",
     "likes": "82",
     "createdAt": datetime.datetime.now()
     }
