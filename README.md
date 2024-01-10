@@ -7,7 +7,7 @@
 - 송한이: KAIST 전산학부 21학번
 
 ### 💻 Tech Stacks
-<https://velog.velcdn.com/images/apro_xo/post/d8e816b5-64de-42c7-98b3-bf52ff04ed4c/image.PNG/>
+<![image](https://github.com/MadCamp-2ndWeek-BrewStar/BrewStar_backEnd/assets/102745492/aa296902-a309-4b79-8f89-f2341082f734)/>
 - minSdkVersion: 26
 - targetSdkVersion: 34
 
