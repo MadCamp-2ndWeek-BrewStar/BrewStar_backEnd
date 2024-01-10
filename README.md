@@ -7,51 +7,83 @@
 - 송한이: KAIST 전산학부 21학번
 
 ### 💻 Tech Stacks
-<![image](https://github.com/MadCamp-2ndWeek-BrewStar/BrewStar_backEnd/assets/102745492/aa296902-a309-4b79-8f89-f2341082f734)/>
-- minSdkVersion: 26
-- targetSdkVersion: 34
+https://velog.velcdn.com/images/apro_xo/post/d8e816b5-64de-42c7-98b3-bf52ff04ed4c/image.PNG
+
+- Flask 2.0.1
+- db version v7.0.5
+- Python 3.10.12
 
 ## 📢 Description
 
 ***Summary***
 몰입캠프 2주차 안드로이드 앱 제작 프로젝트입니다.
 본 프로젝트는 두 개의 탭으로 구성된, 서버와 통신하는 안드로이드 앱 개발을 다루고 있습니다.
-
 ---
 
-### 📱 MainActivity
-![MainActivity](https://github.com/MadCamp-2ndWeek-BrewStar/BrewStar_FrontEnd/assets/112535704/1e6d4c5c-1ac2-428f-b74d-08bb938b8f16)
+### 📱API
+
 ***Main Features***
-- 심플한 스플레시 화면을 만들었습니다.
-- "Start By Using KakaoTalk"을 눌러 카카오톡으로 로그인합니다.
-- 화면 상단의 네비게이션 바를 이용하여 탭을 전환할 수 있습니다. 슬라이드로도 가능합니다.
-- 화면 상단의 로고를 누르면 로그아웃을 할 수 있습니다.
+
+# @app.route("/allCustoms", methods=['GET'])
+
+- 모든 커스텀 메뉴 불러오기 
+
+# @app.route("/myCustom", methods=['GET'])
+
+- 내가 작성한 커스텀 메뉴 불러오기 
+
+# @app.route("/myFavorite", methods=['GET'])
+
+- 내가 좋아요한 커스텀 메뉴 불러오기
+  
+# @app.route("/addCustom", methods=['POST'])
+
+- 내가 작성한 커스텀 메뉴 추가
+  
+# @app.route("/editCustom", methods=['POST'])
+
+- 내가 작성한 커스텀 메뉴 수정
+  
+# @app.route("/deleteCustom", methods=['POST'])
+
+- 내가 작성한 커스텀 메뉴 삭제
+  
+# @app.route("/addUser", methods = ['POST'])
+
+- 카카오톡으로 처음 로그인한 유저 앱에 등록
+  
+# @app.route("/getNickname", methods = ['GET'])
+
+- 카카오톡 고유번호(토큰) 이용 사용자 닉네임 불러오기
+  
+# @app.route("/likeCustom", methods=['POST'])
+
+-좋아요 누른 (좋아요 취소한) 커스텀 메뉴 내 좋아요 목록에 관리 + 좋아요 +,-1 적용 기능 
+
 
 ***Technical Description***
-- Kakaotalk Developers에서 제공하는 Kakao 로그인 API를 사용하였습니다.
-- 카카오톡이 설치되어 있으면 카카오톡 앱으로 로그인, 아니면 카카오계정으로 로그인하도록 구현했습니다.
-- 로그인에 성공했을 때, 로그인에 실패했을 때 Toast Message를 띄워 볼 수 있게 하였습니다.
 
----
+- GET, POST 메쏘드 통한 API 구현
+- request.args.get (GET), request.form.get (POST) 통해 front에서 변수 받아오기
+- datetime.now() 사용해서 커스텀 추가된 시간 기록 및 커스텀 시간순 나열하기
+- find, update, delete, insert 명령어 통해 db 수정. 
 
-### ✌️ TAP1: My Page
-![Tab1](https://github.com/MadCamp-2ndWeek-BrewStar/BrewStar_FrontEnd/assets/112535704/63a67328-1d2c-443b-a955-e1dd5fd73553)
-***Main Features***
-- Favorite Customs 부분에는 "좋아요"를 누른 item들만 뜨도록 했습니다.
-  화면 오른쪽의 스위치가 꺼져 있으면 세 개의 종류별로 분류를 해두었고, 각 카테고리를 클릭하면 카테고리 별로 "좋아요"를 누른 item들을 볼 수 있습니다.
-  스위치를 켜면 모든 item들을 가로 스크롤을 통해 볼 수 있습니다.
-  각 item들을 클릭하면, 팝업창이 뜨면서 상세정보를 볼 수 있습니다.
-  각 항목 우측 상단의 별로 표현되어있는 "좋아요" 버튼을 눌러 취소하면, Favorite Customs에서 제외됩니다.
-- My Customs 부분은, 사용자가 직접 만든 item들을 나열했습니다.
-  각 항목 우측 하단의 수정 버튼을 누르면 해당 item의 내용을 수정할 수 있습니다.
-- 화면 하단의 +버튼을 누르면, 팝업창이 뜨면서 새로운 item을 추가할 수 있습니다. Name, Menu, Custom, Description을 입력하게 됩니다.
-- 모든 item들은 일정 길이 이상으로 글을 입력하게 되면 ...으로 줄여 나타납니다.
-- My Customs에 있는 하나의 item을 왼쪽으로 스와이프하면 삭제할 수 있습니다.
-- 모든 업데이트 상황은 전체 화면을 스와이프하여 새로고침을 하면 반영됩니다.
 
-***Technical Description***
-- API와 안드로이드 스튜디오를 연결하여, 사용자의 TokenID를 넘겨주면 사용자의 Favorite Customs와 My Customs를 모두 받을 수 있도록 구현하였습니다.
-- 또한, 기존의 custom을 수정하거나 새로운 custom을 만들 때 POST 요청을 보내어 서버 DB에 저장될 수 있도록 했습니다.
-- AlertDialog.Builder를 이용하여 팝업창을 구현했습니다.
-- SwipeRefreshLayout을 통해 스와이프하면 새로고침을 할 수 있습니다.
-- 각 항목은 모두 recyclerView로 구현하였습니다.
+### ✌️ DB: noSQL
+
+## Collections
+
+# user_nick (BrewStar 사용자 관리) 
+
+- 카카오톡 인증을 통해 로그인한 유저의 카카오톡 닉네임과 고유번호 저장. 
+
+# users (사용자별 좋아요 목록 관리)
+
+- 카카오톡 고유번호와 좋아요한 커스텀 메뉴의 objectId 관리.
+
+# customs (사용자들이 만든 커스텀 메뉴들)
+
+- objectId, name, menu, category, custom, description, creator, creatornum (고유번호), likes, createdAt
+
+# custom_guide (스타벅스에서 제공하는 메뉴별 커스토마이징 가이드) 
+
