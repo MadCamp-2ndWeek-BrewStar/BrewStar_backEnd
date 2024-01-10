@@ -154,7 +154,7 @@ def editCustom():
 
     return jsonify({'message': 'Custom edited successfully'}), 200
 
-
+#추후 좋아요 목록에서도 삭제되게 수정해야함. !!!!!
 @app.route("/deleteCustom", methods=['POST'])
 def deleteCustom():
 
@@ -168,6 +168,39 @@ def deleteCustom():
     return jsonify({'message': 'Custom deleted successfully'}), 200
 
 
+@app.route("/addUser", methods = ['POST'])
+def addUser():
+
+    collection =db.user_nick
+
+    if collection.find_one({"tokenId": request.form.get('tokenId')}) !=None:
+        return jsonify({'message': 'User already added.'}), 200
+    
+    else: 
+        newUser = {}
+        newUser["tokenId"] = request.form.get('tokenId')
+        newUser["nickname"] = request.form.get('nickname')
+        newUser["createdAt"] = datetime.now()
+        collection.insert_one(newUser)
+        return jsonify({'message': 'User added successfully'}), 200
+
+
+@app.route("/getNickname", methods = ['GET'])
+def getNickname():
+
+    collection=db.user_nick
+    tokenId = request.args.get('tokenId')
+    userInfo=collection.find_one({"tokenId": tokenId})
+    
+    if userInfo:
+        getNickName= userInfo["nickname"]
+        return jsonify(getNickName)
+    
+    else:
+        return "닉네임이 존재하지 않습니다..", 400
+
+
+
 @app.route("/likeCustom", methods=['POST'])
 def likeCustom():
 
@@ -176,7 +209,7 @@ def likeCustom():
 
     collection = db.users
 
-    filter= {"userId": ObjectId(userId)}
+    filter= {"userId": userId}
     #print(filter)= {'userId': ObjectId('659d6650ea6c849187d5ced0')}
 
     info=collection.find_one({"userId": userId})
