@@ -59,8 +59,6 @@ https://velog.velcdn.com/images/apro_xo/post/d8e816b5-64de-42c7-98b3-bf52ff04ed4
 - find, update, delete, insert 명령어 통해 db 수정. 
 
 
-### ✌️ DB: noSQL
-
 ## Collections
 
 ### user_nick (BrewStar 사용자 관리) 
